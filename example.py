@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import flask
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 from flask_googlemaps import icons
@@ -656,7 +656,7 @@ def process_step(args, api_endpoint, access_token, profile_response,
                 for wild in cell.WildPokemon:
                     hash = wild.SpawnPointId;
                     if hash not in seen.keys() or (seen[hash].TimeTillHiddenMs <= wild.TimeTillHiddenMs):
-                        visible.append(wild)    
+                        visible.append(wild)
                     seen[hash] = wild.TimeTillHiddenMs
                 if cell.Fort:
                     for Fort in cell.Fort:
@@ -791,6 +791,19 @@ def fullmap():
     return render_template(
         'example_fullmap.html', key=GOOGLEMAPS_KEY, fullmap=get_map(), auto_refresh=auto_refresh)
 
+@app.route('/current')
+def current_fullmap():
+    clear_stale_pokemons()
+
+    return render_template(
+        'fullmap.html', key=GOOGLEMAPS_KEY, fullmap=get_map(), auto_refresh=auto_refresh)
+
+@app.route('/get_map', methods=['POST'])
+def get_map_for_loc():
+    lat = request.form["lat"]
+    lng = request.form["lng"]
+    print "lat,lng = (%s, %s)" % (lat, lng)
+    return "ok"
 
 @app.route('/next_loc')
 def next_loc():
@@ -805,7 +818,6 @@ def next_loc():
         NEXT_LAT = float(lat)
         NEXT_LONG = float(lon)
         return 'ok'
-
 
 def get_pokemarkers():
     pokeMarkers = [{
