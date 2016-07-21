@@ -119,8 +119,8 @@ def parse_map(map_dict):
             else:  # Currently, there are only stops and gyms
                 gyms[f['id']] = {
                     'gym_id': f['id'],
-                    'team_id': f['owned_by_team'],
-                    'guard_pokemon_id': f['guard_pokemon_id'],
+                    'team_id': 0, # f['owned_by_team'],
+                    'guard_pokemon_id': 0, #f['guard_pokemon_id'],
                     'enabled': f['enabled'],
                     'latitude': f['latitude'],
                     'longitude': f['longitude'],
