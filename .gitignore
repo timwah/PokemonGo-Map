@@ -1,6 +1,7 @@
 *.pyc
 *.idea
 *.db
+*.db-journal
 *.sass-cache
 static/dist/
 node_modules/
