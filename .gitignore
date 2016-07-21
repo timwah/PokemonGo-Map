@@ -2,7 +2,6 @@
 *.idea
 *.db
 *.sass-cache
-credentials.json
 static/dist/
 node_modules/
 venv/
