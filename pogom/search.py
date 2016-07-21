@@ -87,10 +87,8 @@ def search(args):
 
         try:
             parse_map(response_dict)
-        except KeyError as e:
+        except KeyError:
             log.error('Scan step failed. Response dictionary key error.')
-            log.error('got error: %s', e)
-            log.error('for response: %s', json.dumps(response_dict))
 
         log.info('Completed {:5.2f}% of scan.'.format(float(i) / num_steps**2*100))
         i += 1
